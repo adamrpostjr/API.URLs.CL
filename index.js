@@ -9,10 +9,14 @@ api.use(bodyParser.urlencoded({ extended: true }));
 api.use(bodyParser.json());
 
 const shrt = require('./modules/shortener');
-
-const server = api.listen(8085, function () {
-  console.log('Server started at :8085');
-});
+const cache = require('./modules/cache');
+var appAuth = async (req, res, next) => {
+  let check = await cache._approvedApp(req.headers.appkey);
+  if (!check) {
+    return res.status(401).json('unauthorized');
+  }
+  next();
+};
 
 /**
  * API Information
@@ -34,7 +38,11 @@ api.get('/slug/:slug', async (req, res) => {
   }
 });
 
-api.post('/slug/', async (req, res) => {
+api.post('/slug/', appAuth, async (req, res) => {
   let test = await shrt.createUrl(req.body.url);
   res.json(test);
+});
+
+const server = api.listen(8085, function () {
+  console.log('Server started at :8085');
 });
