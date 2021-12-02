@@ -1,0 +1,17 @@
+{
+  "name": "API.URLs.CL",
+  "version": "1.0.0",
+  "description": "the API behind the URLs url shortner.",
+  "main": "index.js",
+  "author": "Adam Post",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "monk": "^7.3.4",
+    "nanoid": "^3.1.30"
+  }
+}
