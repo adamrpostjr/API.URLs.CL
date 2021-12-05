@@ -32,7 +32,7 @@ api.get('/', (req, res) => {
 api.get('/slug/:slug', async (req, res) => {
   let url = await shrt.findUrl(req.params.slug);
   if (url) {
-    res.redirect(url);
+    res.json(url);
   } else {
     res.status(404).json('404 Not Found');
   }
